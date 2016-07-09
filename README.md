@@ -3,13 +3,20 @@ A Telegram bot running on an ESP8266 based Arduino that turns on and off my Imme
 
 This project uses [Universal-Arduino-Telegram-Bot](https://github.com/witnessmenow/Universal-Arduino-Telegram-Bot) to communicate with Telegram.
 
+#### Telegram Controls
+![Telegram Controls](http://i.imgur.com/2Rh6lBg.jpg?2)
+
+#### Bot
+![Bot](http://i.imgur.com/tVKzGgU.jpg?2)
+
 ## Objective
 
 During the summer months in my house we don't use our oil central heating which would normally heat our water, We instead use our immersion. The problem with this is that our immersion only has an "On/Off" switch. This means we cant set it to come on at certain times and we would often forget to turn it off before leaving the house which can be an expensive mistake as it uses a lot of electricity.
 
 I wanted to create a device that would allow be to control the immersion from anywhere and give me the ability to add additional features (e.g. turn on the immersion for an hour and then turn it off again). I also didn't want to interfere with the electrics as it is a rented house.
 
-[http://i.imgur.com/RmUluqB.png]
+#### Schematic
+![Schematic](http://i.imgur.com/RmUluqB.png?3)
 
 ## Materials
 
