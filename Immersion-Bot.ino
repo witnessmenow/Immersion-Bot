@@ -137,22 +137,22 @@ void handleNewMessages(int numNewMessages) {
     String text = bot.messages[i].text;
     if (auth)
     {
-      if (text == "\/on") {
+      if (text == "/on") {
         Serial.println("got Telegram /on");
         turnImersionOn();
         bot.sendMessage(chat_id, "Imersion is now on", "");
       }
-      if (text == "\/off") {
+      if (text == "/off") {
         Serial.println("got Telegram /off");
         turnImersionOff();
         bot.sendMessage(chat_id, "Imersion is now off", "");
       }
-      if (text == "\/boost") {
+      if (text == "/boost") {
         Serial.println("got Telegram /boost");
         turnOnBoost();
         bot.sendMessage(chat_id, "Imersion is now on with boost", "");
       }
-      if (text == "\/status") {
+      if (text == "/status") {
         if(imersionStatus == 1){
           bot.sendMessage(chat_id, "Imersion is ON", "");
         } else if(imersionStatus == 0)
@@ -163,7 +163,7 @@ void handleNewMessages(int numNewMessages) {
           bot.sendMessage(chat_id, "I'm not sure", "");
         }
       }
-      if (text == "\/start") {
+      if (text == "/start") {
         StaticJsonBuffer<500> jsonBuffer;
         JsonObject& payload = jsonBuffer.createObject();
         payload["chat_id"] = chat_id;
