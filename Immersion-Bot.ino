@@ -1,9 +1,10 @@
 #include <UniversalTelegramBot.h>
+
 #include <Servo.h>
 #include <ESP8266WiFi.h>
 #include <WiFiClientSecure.h>
 
-#define SERVO_CONTROL_PIN D1
+#define CONTROL_PIN D1
 
 #define NEUTRAL_ANGLE 72
 #define ON_ANGLE 140
@@ -11,11 +12,13 @@
 #define STEPS 1
 #define DELAY 15
 
+#define HALL_EFFECT_SENSOR_PIN D5
 #define TOGGLE_BUTTON_PIN D2
 #define BOOST_BUTTON_PIN D5
 
 //An hour in milliseconds
 #define BOOST_DELAY 3600000
+#define ON_TIME_WARNING 3600000
 
 #define BOTtoken "XXXXXXX:XXXXXXXXXXXXXXXXXXXXXXXXX"  //Get not token from botfather
 
@@ -23,8 +26,7 @@ char ssid[] = "XXXXXXX";              // your network SSID (name)
 char pass[] = "XXXXXXXX";                              // your network key
 
 int boostActive = 0;
-int imersionStatus = -1;
-unsigned long boostStartTime;
+unsigned long boostStart;
 
 volatile int boostButtonPressed;
 volatile int toggleButtonPressed;
@@ -33,22 +35,22 @@ int lastToggleButtonState = LOW;
 long lastToggleTime = 0;  // the last time the output pin was toggled
 long coolDownDelay = 500;    // the debounce time; increase if the output flickers
 
-Servo myservo;
+Servo myservo;  // create servo object to control a servo
+                // a maximum of eight servo objects can be created
+int imersionStatus = -1;
 int pos = 0;    // variable to store the servo position
+int Bot_mtbs = 1000; //mean time between scan messages
+long Bot_lasttime;   //last time messages' scan has been done
+
+long warningDueTime;
 
 WiFiClientSecure client;
 
 UniversalTelegramBot bot(BOTtoken, client);
-int Bot_mtbs = 10000; //wait time between checking Telegram for new messages
-long Bot_lasttime;   //last time messages' scan has been done
 
-// The bot will allow only accept commands from authenticatedUsers
-// The bot will post status messages to the chat
 
+// Bot will only accept commands coming from the following chat ID (can be a group)
 // Use @myidbot to get these Telegram Ids
-
-int numberAuthUsers = 2;
-String authenticatedUsers[2] = {"987654321", "987665544"};
 String chat = "-1123456789";
 
 void setup()
